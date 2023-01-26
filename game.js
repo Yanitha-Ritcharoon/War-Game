@@ -27,19 +27,19 @@ class Deck {
         this.cards = []
         this.createCards()
         console.log(this.cards)
+        
     }
     createCards() {
         for (let i = 0; i < SUITS.length; i++) {
             for (let x = 0; x < VALUES.length; x++) {
                 //calling the constructor Card to make a new card
                 //this card need to recieve from class Card
-                this.cards.push(new Card(SUITS[i], VALUES[x]))
-                //you can use console.log to check if the code working
+                this.cards.push(new Card(SUITS[i], VALUES[x]))        
             }
         }
     }
 
-    // create shuffle function to random card for each players
+    //shuffle cards to random card for each players
     shuffle() {
         this.shuffledCards = [] 
         for (let i = this.cards.length - 1; i > 0; i--) {
@@ -50,109 +50,118 @@ class Deck {
         }
     }
 
-    // deal the cards to player by split half of 52 cards to 26 cards per each
-    deal() {
-        for (let i = 0; i < 2; i++) {
-            if (i % 2) {
-        console.log("player1", this.cards.slice(26));
-        // rewirte to code
-        console.log("player2", this.cards.slice(26));
+    // deal the cards to player
+   deal (player, numCard) {
+        for(let i = 0; i < numCard; i++) {
+            //take the card off the desk
+            player.cards.push(this.cards.pop())
+            
         }
-    }
-}
+    } 
 }
 
 // create how the game is going
 class Game {
     constructor(rank) {
         this.rank = rank
-        this.deck = new Deck() // the action that need to happen for the game
+        this.deck = new Deck() 
         this.deck.shuffle()
         this.deck.deal()
-    }
-    //take turn: Iterate through the turns where each Player plays a card
+        
+        // split the cards for each player
+        this.p1 = new Player()
+        this.p2 = new Player()
+        this.deck.deal(this.p1, 26)
+        this.deck.deal(this.p2, 26)
+        console.log("Player 1's Hand:\n", this.p1.cards)
+        console.log("Player 2's Hand:\n", this.p2.cards)
 
-    //compare each cards to get score
-    compare() {
-        //who get higest score get 1 point
-        /* if (player1.rank > palyer2.rank) {
-            console.log("Player1 get one point");
-        } else if (player1.rank < player2.rank) {
-            console.log("Player2 get one point");
-        } else (player1.rank = player2.rank) { 
-            //if ties get o point 
-            console.log("You are tie, no score!");
-        }
-    }
-    keep score properites on player , player2.score += 1
-    score() {
-        let player1.score = 0;
-        let player2.score = 0;
-        do {
-            console.log(player1.score;
-            player1.score += 1;
-        }   while(iterator <=26); 
-    }
-        do {
-            console.log(player2.score;
-            player2.score += 1;
-        }   while(iterator <=26); 
+        // make sure players have cards
+        while(this.p1.cards.length > 0 && this.p2.cards.length > 0)
+          this.turn();
+        
+        //display show which player won  
+        if(this.p1.points > this.p2.points)
+          console.log(`Player 1 won the tournament! They had ${this.p1.points} pts, which is more than Player 2's ${this.p2.points} pts.`)
+        else if (this.p1.points < this.p2.points)
+          console.log(`Player 2 won the tournament! They had ${this.p2.points} pts, which is more than Player 1's ${this.p1.points} pts.`)
+        else
+          console.log(`The tournament ended in a tie, with ${this.p1.points}`)
     }
 
+    //take turn
+    turn() {
+      let p1c = this.p1.cards.pop()
+      let p2c = this.p2.cards.pop()
+      let winner = compare(p1c, p2c)
+      
+      console.log(`Player 1 has ${p1c.value} of ${p1c.suit} & Player 2 has ${p2c.value} of ${p2c.suit}`)
+      // calculate the score of each palyer everytime when they win
+      if(winner == 1) {
+        this.p1.points++
+        console.log("Player 1 wins!")
+      } else if(winner == -1) {
+        this.p2.points++
+        console.log("Player 2 wins!")
+      } else
+        console.log("It was a tie :(")
+        // create space to the line: make it easier for read
+        console.log()
     }
-    // the end of the for lop length the card  let i = 0; i < player1.cards.length, i++  (same thing) this.cards.push(new Card(SUITS[i], VALUES[x])) 
-
-    totalScore() {
-        //show the final score and winner: sum score of each player
-        for (let hand1 = 0; hand1 < player1.cards.length, hand1++) {
-            for (let hand2 = 0; hand2 < player2.cards.length, hand2++)
-            this.rank.push(new Score(player1[hand1], palyer2[hand2]))
-        }
-        if (player1.totalScore > player2.totalScore) {
-            console.log("Player1 is the winner!");
-        } else if (player1.totalScore < player2.totalScore){
-            console.log("Player2 is the winner!")
-        } else {
-            console.log("Tie Score, No Winner!")
-        }
-    }
-
+}
     
-    
-    
-    //throw new Error: (Maybe who won if ties get error)
-  can pick any function to do this test */
-} }
+// declare value of cards
+function valueOf(card) {
+  switch (card.value) {
+    case '1':
+      return 1;
+    case '2':
+      return 2;
+    case '3':
+      return 3;
+    case '4':
+      return 4;
+    case '5':
+      return 5;
+    case '6':
+      return 6;
+    case '7':
+      return 7;
+    case '8':
+      return 8;
+    case '9':
+      return 9;
+    case '10':
+      return 10;
+    case 'J':
+      return 11;
+    case 'Q':
+      return 12;
+    case 'K':
+      return 13;
+    case 'A':
+      return 14;
+  }
+}
+// compare value of card of each player
+function compare(card1, card2) {
+    // if player1 has highest card get 1 point
+    if(valueOf(card1) > valueOf(card2))
+        return 1;
+    // if player1 and playe2 tie get noting
+    else if (valueOf(card1) == valueOf(card2))
+        return 0;
+    // if player1 had lowest card lose 1 point
+    else
+        return -1;
+}
 
 class Player {
-    constructor(player1, player2) {
-        this.player1 = player1
-        this.player2 = player2
+    constructor() {
+        this.cards = []
+        this.points = 0
     }
 }
 
+new Game()
 
-new Game("player1", "player2")
-
-
-
-
-/* 
-1 shuffle cards
-2 split cards 26 cards per each / half of 52 cards
-3 open card of each player - take turn
-4 compare each cards to get score
-5 who get higest score get 1 point
-6 if ties get o point 
-7 show the final score and winner
-8 create Mocha and Chai with one function */
-
- // who get higest score get 1 point
-    // if ties get o point 
-    // player will have thrie own class
-    // get score 
-    // use splice to deals 26 cards or for loop even or odd 
-    // player1Score > player2Score
-    // use if else for score
-    // high card award 1 point 
-    
