@@ -1,10 +1,8 @@
 /* Game War for 2 players 
-classes: Card, Deck, Player
-*no need to accept any user input, the entire game should play out instanly without user input
 1. deal 26 cards to each Player from a deck of 52 cards
 2. Iterate through the turns where each Player plays a card
 3. who played get higher card is awarded a point - ties result in zero points for both Players
-4. after all cards have been played, disply the score and declare the winner
+4. after all cards have been played, display the score and declare the winner
 5. write a Unit Test using Mocha and Chai for at least one of the functions you write*/
 
 alert ('Are you ready for the War?!');
@@ -37,7 +35,7 @@ class Deck {
         for (let i = 0; i < SUITS.length; i++) {
             for (let x = 0; x < VALUES.length; x++) {
                 //calling the constructor Card to make a new card
-                //this card need to recieve from class Card
+                //this card need to receive from class Card
                 this.cards.push(new Card(SUITS[i], VALUES[x]))        
             }
         }
@@ -101,7 +99,7 @@ class Game {
       
         console.log(`Player 1 has ${p1c.value} of ${p1c.suit} & Player 2 has ${p2c.value} of ${p2c.suit}`)
     
-    // calculate the score of each player everytime when they win
+    // calculate the score of each player every time when they win
         if(winner == 1) {
             this.p1.points++
             console.log("Player 1 wins!")
@@ -154,7 +152,7 @@ function compare(card1, card2) {
     // if player1 has highest card get 1 point
     if(valueOf(card1) > valueOf(card2))
         return 1;
-    // if player1 and playe2 tie get noting
+    // if player1 and player2 tie get noting
     else if (valueOf(card1) == valueOf(card2))
         return 0;
     // if player1 had lowest card lose 1 point
