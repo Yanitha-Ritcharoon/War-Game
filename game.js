@@ -27,10 +27,10 @@ class Deck {
         this.cards = []
         this.createCards()
         console.log(this.cards)
-        
+        /* use For loop to check if it gets all the correct cards
         for( let i = 0; i < this.cards.length; i++) {
             console.log(this.cards[i])
-        } 
+        } */
         
     }
     createCards() {
@@ -55,7 +55,7 @@ class Deck {
     }
 
     // deal the cards to player
-   deal (player, numCard) {
+    deal (player, numCard) {
         for(let i = 0; i < numCard; i++) {
             //take the card off the desk
             player.cards.push(this.cards.pop())
@@ -95,58 +95,60 @@ class Game {
 
     //take turn
     turn() {
-      let p1c = this.p1.cards.pop()
-      let p2c = this.p2.cards.pop()
-      let winner = compare(p1c, p2c)
+        let p1c = this.p1.cards.pop()
+        let p2c = this.p2.cards.pop()
+        let winner = compare(p1c, p2c)
       
-      console.log(`Player 1 has ${p1c.value} of ${p1c.suit} & Player 2 has ${p2c.value} of ${p2c.suit}`)
-      // calculate the score of each player everytime when they win
-      if(winner == 1) {
-        this.p1.points++
-        console.log("Player 1 wins!")
-      } else if(winner == -1) {
-        this.p2.points++
-        console.log("Player 2 wins!")
-      } else
-        console.log("It was a tie :(")
-        // create space to the line: make it easier for read
-        console.log("\n")
+        console.log(`Player 1 has ${p1c.value} of ${p1c.suit} & Player 2 has ${p2c.value} of ${p2c.suit}`)
+    
+    // calculate the score of each player everytime when they win
+        if(winner == 1) {
+            this.p1.points++
+            console.log("Player 1 wins!")
+        } else if(winner == -1) {
+            this.p2.points++
+            console.log("Player 2 wins!")
+        } else
+            console.log("It was a tie :(")
+            // create space to the line: make it easier for read
+         console.log("\n")
     }
 }
     
 // declare value of cards
 function valueOf(card) {
-  switch (card.value) {
-    case '1':
-      return 1;
-    case '2':
-      return 2;
-    case '3':
-      return 3;
-    case '4':
-      return 4;
-    case '5':
-      return 5;
-    case '6':
-      return 6;
-    case '7':
-      return 7;
-    case '8':
-      return 8;
-    case '9':
-      return 9;
-    case '10':
-      return 10;
-    case 'J':
-      return 11;
-    case 'Q':
-      return 12;
-    case 'K':
-      return 13;
-    case 'A':
-      return 14;
+    switch (card.value) {
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        case '6':
+            return 6;
+        case '7':
+            return 7;
+        case '8':
+            return 8;
+        case '9':
+            return 9;
+        case '10':
+            return 10;
+        case 'J':
+            return 11;
+        case 'Q':
+            return 12;
+        case 'K':
+            return 13;
+        case 'A':
+            return 14;
   }
 }
+
 // compare value of card of each player
 function compare(card1, card2) {
     // if player1 has highest card get 1 point
