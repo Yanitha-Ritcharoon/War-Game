@@ -28,6 +28,10 @@ class Deck {
         this.createCards()
         console.log(this.cards)
         
+        for( let i = 0; i < this.cards.length; i++) {
+            console.log(this.cards[i])
+        } 
+        
     }
     createCards() {
         for (let i = 0; i < SUITS.length; i++) {
@@ -81,12 +85,12 @@ class Game {
           this.turn();
         
         //display show which player won  
-        if(this.p1.points > this.p2.points)
+       if(this.p1.points > this.p2.points) 
           console.log(`Player 1 won the tournament! They had ${this.p1.points} pts, which is more than Player 2's ${this.p2.points} pts.`)
         else if (this.p1.points < this.p2.points)
           console.log(`Player 2 won the tournament! They had ${this.p2.points} pts, which is more than Player 1's ${this.p1.points} pts.`)
         else
-          console.log(`The tournament ended in a tie, with ${this.p1.points}`)
+          console.log(`The tournament ended in a tie, with ${this.p1.points}`) 
     }
 
     //take turn
@@ -96,7 +100,7 @@ class Game {
       let winner = compare(p1c, p2c)
       
       console.log(`Player 1 has ${p1c.value} of ${p1c.suit} & Player 2 has ${p2c.value} of ${p2c.suit}`)
-      // calculate the score of each palyer everytime when they win
+      // calculate the score of each player everytime when they win
       if(winner == 1) {
         this.p1.points++
         console.log("Player 1 wins!")
@@ -106,7 +110,7 @@ class Game {
       } else
         console.log("It was a tie :(")
         // create space to the line: make it easier for read
-        console.log()
+        console.log("\n")
     }
 }
     
@@ -163,5 +167,5 @@ class Player {
     }
 }
 
-new Game()
+var game = new Game()
 
